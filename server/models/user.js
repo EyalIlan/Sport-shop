@@ -39,7 +39,31 @@ const userSchame = mongoose.Schema({
                 throw new Error('Age must be postive number and lower then 120')
             }
         }
+    },
+    role:{
+        type:String,
+        required:true
+    },
+    phone:{
+        type:String,
+        required:true,
+        uniq:true
+    },
+    address:{
+        
+        city:{
+            type:String
+        },
+        home_address:{
+            type:String
+        }
+
     }
 
 
 })
+
+const User = mongoose.model('user',userSchame)
+
+
+export default User
