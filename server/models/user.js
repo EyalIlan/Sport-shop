@@ -54,7 +54,7 @@ const userSchame = mongoose.Schema({
     },
     role:{
         type:String,
-        required:true        
+        default:'user'       
     },
    tokens:[{
         token:{
@@ -84,4 +84,4 @@ const userSchame = mongoose.Schema({
 const User = mongoose.model('user',userSchame)
 
 
-export default User
+module.exports = User
