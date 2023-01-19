@@ -22,7 +22,19 @@ const userSchame = mongoose.Schema({
             }
         }
     },
+    password:{
 
+        type:String,
+        required:true,
+        trim:true,
+        minlength:7,
+        validate(value){
+            if(value.toLowerCase().includes('password')){
+                throw new Error('password must be longer then 6 and dont contain the word password')
+            }
+        }
+
+    },
     email:{
         type:String,
         required:true,
@@ -42,8 +54,14 @@ const userSchame = mongoose.Schema({
     },
     role:{
         type:String,
-        required:true
+        required:true        
     },
+   tokens:[{
+        token:{
+            type:String,
+            required:true
+        }
+    }],
     phone:{
         type:String,
         required:true,
