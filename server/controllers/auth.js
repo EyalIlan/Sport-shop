@@ -32,6 +32,21 @@ const Login = async(req,res) =>{
     }
 }
 
+const LogOut = async() =>{
+
+    
+    req.user.tokens = []
+    try{
+        req.user.save()
+        res.status(200).json('user logout')
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json('cant logout from user account')
+    }
+}
+
 module.exports ={
-    Login
+    Login,
+    LogOut
 }
