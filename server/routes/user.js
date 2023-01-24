@@ -1,16 +1,20 @@
 
 const express = require('express')
+const {Auth} = require('../utils/middleware/auth') 
+const userController = require('../controllers/user')
 
 const router = express.Router()
 
 
-router.get('/',userController.getUser) // Auth
+router.get('/',Auth,userController.getUser) // Auth
 
 router.post('/',userController.createUser)
 
-router.put('/',userController.editUser) //Auth
+router.put('/',Auth,userController.editUser) //Auth
 
-router.delete('/',userController.deleteUser) //Auth
+router.delete('/',Auth,userController.deleteUser) //Auth
 
 
 // all user with specific argument
+
+module.exports = router

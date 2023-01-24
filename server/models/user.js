@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose')
-
+const Bycrypt = require('bcrypt')
 
 const userSchame = mongoose.Schema({
 
@@ -64,7 +64,7 @@ const userSchame = mongoose.Schema({
     }],
     phone:{
         type:String,
-        required:true,
+        required:false,
         uniq:true
     },
     address:{
@@ -80,6 +80,17 @@ const userSchame = mongoose.Schema({
 
 
 })
+
+userSchame.pre('save',async function(next){
+    const user = this
+    if(user.isModified('password')){
+        user.password = await Bycrypt.hash(this.password,8)
+    }
+    next()
+})
+
+
+
 
 const User = mongoose.model('user',userSchame)
 
