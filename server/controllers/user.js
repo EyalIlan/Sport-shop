@@ -40,11 +40,17 @@ const deleteUser = async(req,res) =>{
 
 const createUser = async(req,res) =>{
 
-    const user = req.user
+    console.log();
 
-    Object.keys(req.body).forEach(update =>{
-        user[update] = req.body[update]
-    })
+    // LATER!
+    // const user = req.user
+
+    // Object.keys(req.body).forEach(update =>{
+    //     user[update] = req.body[update]
+    // })
+
+    const user = new User(req.body)
+
 
     try{
        // later add image 
