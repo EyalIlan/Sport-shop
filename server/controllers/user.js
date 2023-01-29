@@ -1,10 +1,16 @@
 const User = require('../models/user')
 
 
-const  getUser = async(req,res) =>{
+const  getUsers = async(req,res) =>{
 
-    
-
+    try{
+        const users = await User.find({})
+        res.status(200).json(users)
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json('cant get the users')
+    }
 }
 
 const editUser = async(req,res) =>{
@@ -65,7 +71,7 @@ const createUser = async(req,res) =>{
 
 
 module.exports = {
-    getUser,
+    getUsers,
     editUser,
     deleteUser,
     createUser

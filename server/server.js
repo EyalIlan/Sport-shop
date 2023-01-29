@@ -15,7 +15,7 @@ const ProductRoute = require('./routes/product')
 
 
 
-// app.use('/',AuthRoute)
+app.use('/',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/product',ProductRoute)
 

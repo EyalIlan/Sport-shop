@@ -10,7 +10,7 @@ router.get('/',ProductController.getProducts)
 
 router.get('/:id',ProductController.getSpecificProduct)
 
-router.post('/',Auth,ProductController.createProduct)
+router.post('/',Auth,Admin,ProductController.createProduct)
 
 router.put('/:id',Auth,Admin,ProductController.updateProduct)
 

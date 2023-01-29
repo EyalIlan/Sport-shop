@@ -1,22 +1,21 @@
-const { findOne } = require('../models/user')
 const User = require('../models/user')
 const Bycrypt = require('bcrypt')
 const Jwt = require('jsonwebtoken')
-
+///
 const Login = async(req,res) =>{
-
     const {password,email} = req.body
-
+    
     try{
       
-         const user = findOne({email:email})   
+         const user = await User.findOne({email:email})   
 
          if(!user){
             throw new Error('Unable to connect')
-         }
+        }
 
          const isMatch = await  Bycrypt.compare(password,user.password)
-
+         
+         
          if(!isMatch){
             throw new Error('Unable to connect')
          }
@@ -32,7 +31,7 @@ const Login = async(req,res) =>{
     }
 }
 
-const LogOut = async() =>{
+const LogOut = async(req,res) =>{
 
     
     req.user.tokens = []
