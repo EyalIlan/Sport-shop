@@ -16,6 +16,7 @@ const productSchema = Mongoose.Schema({
     },
     price:{
         type:Number,
+        required:true,
         default:0,
         validate(value){
             if(value < 0){
@@ -33,6 +34,11 @@ const productSchema = Mongoose.Schema({
                 throw new Error('the number the product has is in the shop cant be lower then 0')
             }
         }
+    },
+    rating:{
+        type:Number,
+        default:0,
+        required:false
     },
     category:{
         type:String,

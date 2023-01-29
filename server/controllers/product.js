@@ -21,21 +21,51 @@ const getProducts = async(req,res) =>{
 
 const createProduct = async(req,res) =>{
  
-    
+    const productValues = req.body
+    const product = new Product(productValues)
+    try{
+       await product.save()
+       res.status(201).json('The product has created')
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json('cant create product')
+    }
+
 }
 
 const updateProduct = async(req,res) =>{
+
+    
 
 }
 
 
 const deleteProduct = async(req,res) =>{
 
+
 }
+
+const getSpecificProduct = async(req,res) =>{
+
+    const Id = req.params.id
+
+    try{
+        const product = await Product.findById(Id)
+        res.status(200).json(product)
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json(e)
+    }
+
+}
+
 
 module.exports = {
     getProducts,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSpecificProduct
 }
