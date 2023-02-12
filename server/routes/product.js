@@ -10,14 +10,14 @@ router.get('/',ProductController.getProducts)
 
 router.get('/:id',ProductController.getSpecificProduct)
 
+
+
+// Admin
 router.post('/',Auth,Admin,ProductController.createProduct)
 
 router.put('/:id',Auth,Admin,ProductController.updateProduct)
 
 router.delete('/:id',Auth,Admin,ProductController.deleteProduct)
-
-
-// 
 
 
 

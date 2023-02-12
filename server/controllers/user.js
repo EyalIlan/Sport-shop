@@ -1,7 +1,8 @@
+const Product = require('../models/product');
 const User = require('../models/user')
 
 
-const  getUsers = async(req,res) =>{
+const  getUser = async(req,res) =>{
 
     try{
         const users = await User.find({})
@@ -11,6 +12,22 @@ const  getUsers = async(req,res) =>{
         console.log(e);
         res.status(500).json('cant get the users')
     }
+}
+
+
+const getUsers = async(req,res) =>{
+
+    const searchData = req.query
+
+    try{
+        const users = await User.find(searchData)
+        res.status(200).json(users)
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json('cant get products')
+    }
+
 }
 
 const editUser = async(req,res) =>{
@@ -32,6 +49,13 @@ catch(e){}
 
 }
 
+
+const editUsers = async(req,res) =>{
+
+    const editParamertrs = req.body
+
+}
+
 const deleteUser = async(req,res) =>{
 
     try{
@@ -46,7 +70,6 @@ const deleteUser = async(req,res) =>{
 
 const createUser = async(req,res) =>{
 
-    console.log();
 
     // LATER!
     // const user = req.user
@@ -71,8 +94,9 @@ const createUser = async(req,res) =>{
 
 
 module.exports = {
-    getUsers,
+    getUser,
     editUser,
     deleteUser,
-    createUser
+    createUser,
+    getUsers
 }

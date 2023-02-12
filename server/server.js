@@ -19,6 +19,15 @@ app.use('/',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/product',ProductRoute)
 
+app.use((error,req,res,next) =>{
+
+    if(error){
+        let message = error.message
+        res.json(message)
+    }
+    next()
+})
+
 
 //////
 MongoDB.MongooseConnect()

@@ -8,7 +8,7 @@ const MongooseConnect =  () =>{
 
 
     Mongoose.connect(`mongodb+srv://John:W9zk85qGSYDg8X12@cluster0.pzppprm.mongodb.net/shop`).then(() =>{
-        console.log('database connected Yey! :) :) :) :) :)');
+        console.log('Database Connected');
     })
     .catch(e =>{
         console.log('error');
