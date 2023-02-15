@@ -8,12 +8,10 @@ const productSchema = Mongoose.Schema({
     name:{
         type:String,
         required:true,
+        trim:true,
         unique:true
     },
-    description:{
-        type:String,
-        required:false
-    },
+
     price:{
         type:Number,
         required:true,
@@ -24,8 +22,29 @@ const productSchema = Mongoose.Schema({
             }
         }
     },
+
+    description:{
+        type:String,
+        required:true
+    },
+
+    rating:{
+        type:Number,
+        default:0,
+        required:false
+    },
+
+    imagesUrl:[
+        {
+            url:{
+                type:String,
+                required:true
+            }
+        }
+    ],
+      
     //quentity -> number of the product avauible
-    qyt:{
+    quentity:{
         type:Number,
         required:false,
         default:0,
@@ -35,20 +54,22 @@ const productSchema = Mongoose.Schema({
             }
         }
     },
-    rating:{
-        type:Number,
-        default:0,
-        required:false
-    },
+   
     category:{
         type:String,
-        required:true,
+        required:true
     },
-    
-    imageUrl:{
-        type:String,
-        required:false
-    }
+    numOfReviews:{
+        type:Number,
+        default:0
+    },
+    reviews:[{
+        name:{
+            type:String,
+            required:true
+        }
+    }]
+
 })
 
 const Product = Mongoose.model('product',productSchema)

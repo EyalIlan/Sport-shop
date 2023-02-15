@@ -32,6 +32,6 @@ app.use((error,req,res,next) =>{
 //////
 MongoDB.MongooseConnect()
 
-app.listen(5000 ,() =>{
-    console.log(`Server Running on port ${process.env.PORT}`);
+app.listen(process.env.PORT || 5000 ,() =>{
+    console.log(`Server Running on port ${process.env.PORT} && ${process.env.NODE_ENV}`);
 })

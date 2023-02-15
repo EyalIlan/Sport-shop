@@ -7,7 +7,7 @@ Mongoose.set({"strictQuery":false})
 const MongooseConnect =  () =>{
 
 
-    Mongoose.connect(`mongodb+srv://John:W9zk85qGSYDg8X12@cluster0.pzppprm.mongodb.net/shop`).then(() =>{
+    Mongoose.connect(process.env.DATABASE_URL).then(() =>{
         console.log('Database Connected');
     })
     .catch(e =>{

@@ -36,7 +36,17 @@ const createProduct = async(req,res) =>{
 
 const updateProduct = async(req,res) =>{
 
-    
+    const {id} = req.params 
+    const editValues  = req.body
+
+    try{
+        const product = await Product.findByIdAndUpdate(id,editValues)
+        res.status(200).json(product)
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json('cant update product')
+    }
 
 }
 
