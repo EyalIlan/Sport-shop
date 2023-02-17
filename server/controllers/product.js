@@ -7,10 +7,10 @@ const getProducts = async(req,res) =>{
 
     const query = filterQuery(req.query)
 
-
     try{
-        const products = await Product.find(query).skip(req.query.page*20).limit(20)
-        res.status(200).json({count:products.length,products})
+        const productCount = await Product.countDocuments()
+        const products = await Product.find(query).skip(req.query.page*20 || 0).limit(20)
+        res.status(200).json({products,productCount})
     }
     catch(e){
         console.log(e);

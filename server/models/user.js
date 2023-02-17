@@ -1,29 +1,15 @@
 
 const mongoose = require('mongoose')
 const Bycrypt = require('bcrypt')
+const Validator = require('validator')
 
 const userSchame = mongoose.Schema({
 
-    first_name:{
+    name:{
         type:String,
-        required:true,
-        validate(name){
-            if (name.length <= 2){
-                throw new Error('Name must be bigger then 2 charcters')
-            }
-        }
-    },
-    last_name:{
-        type:String,
-        required:true,
-        validate(name){
-            if (name.length <= 2){
-                throw new Error('Name must be bigger then 2 charcters')
-            }
-        }
-    },
+        required:true
+   },
     password:{
-
         type:String,
         required:true,
         trim:true,
@@ -33,23 +19,15 @@ const userSchame = mongoose.Schema({
                 throw new Error('password must be longer then 6 and dont contain the word password')
             }
         }
-
     },
     email:{
         type:String,
         required:true,
         uniq:true,
-        validate(){
-            // validate libary email
-        }
-    },
-    age:{
-        type:Number,
-        required:false,
-        validate(age){
-            if(age < 10 || age > 120){
-                throw new Error('Age must be postive number and lower then 120')
-            }
+        validate(email){
+          if(!Validator.isEmail(email)){
+            throw new Error('Must be a proper email')
+          }
         }
     },
     role:{
@@ -65,18 +43,26 @@ const userSchame = mongoose.Schema({
     phone:{
         type:String,
         required:false,
-        uniq:true
-    },
-    address:{
-        
-        city:{
-            type:String
-        },
-        home_address:{
-            type:String
+        validate(phone){
+            if(!Validator.isMobilePhone(phone)){
+                throw new Error('must be a proper phone')
+            }
         }
-
+    },
+    imageUrl:{
+        type:String,
+        required:false
     }
+    // address:{
+        
+    //     city:{
+    //         type:String
+    //     },
+    //     home_address:{
+    //         type:String
+    //     }
+
+    // }
 
 
 })
@@ -87,7 +73,7 @@ userSchame.pre('save',async function(next){
         user.password = await Bycrypt.hash(this.password,8)
     }
     next()
-})
+},{timestamps:true})
 
 
 

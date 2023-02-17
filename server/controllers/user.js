@@ -1,11 +1,10 @@
-const Product = require('../models/product');
 const User = require('../models/user')
-
+const {filterQuery} = require('../utils/functions/request')
 
 const  getUser = async(req,res) =>{
 
     try{
-        const users = await User.find({})
+        const users = await User.findById(req.params.id)
         res.status(200).json(users)
     }
     catch(e){
@@ -32,7 +31,6 @@ const getUsers = async(req,res) =>{
 
 const editUser = async(req,res) =>{
 
-    console.log('in update user');
     try{
     const user = req.user
     Object.keys(req.body).forEach(update =>{
@@ -53,7 +51,16 @@ catch(e){}
 const editUsers = async(req,res) =>{
 
     const editParamertrs = req.body
+    const {id} = req.params.id
 
+    try{
+        await User.findByIdAndUpdate(id,editParamertrs)
+        res.status(200).json('User has updated')
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json('cant update that user')        
+    }
 }
 
 const deleteUser = async(req,res) =>{
@@ -70,15 +77,19 @@ const deleteUser = async(req,res) =>{
 
 const createUser = async(req,res) =>{
 
+    const {name,email,password} = req.body
 
-    // LATER!
-    // const user = req.user
+    // image url bring from cloudinary and check if the user send a phone argument
 
     // Object.keys(req.body).forEach(update =>{
     //     user[update] = req.body[update]
     // })
 
-    const user = new User(req.body)
+    const user = new User({
+        name,
+        email,
+        password
+    })
 
 
     try{
@@ -96,6 +107,7 @@ const createUser = async(req,res) =>{
 module.exports = {
     getUser,
     editUser,
+    editUsers,
     deleteUser,
     createUser,
     getUsers

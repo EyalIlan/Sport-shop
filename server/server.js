@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended:true}))
 const AuthRoute = require('./routes/auth')
 const UserRoute = require('./routes/user')
 const ProductRoute = require('./routes/product')
-//
+
 
 app.use('/',AuthRoute)
 app.use('/user',UserRoute)
@@ -30,7 +30,7 @@ app.use(ErrorHandler.ErrorHandler)
 // })
 
 
-//////
+
 MongoDB.MongooseConnect()
 
 app.listen(process.env.PORT || 5000 ,() =>{
