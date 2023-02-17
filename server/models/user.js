@@ -78,7 +78,7 @@ userSchame.pre('save',async function(next){
 
 
 
-const User = mongoose.model('user',userSchame)
+const User = mongoose.model('User',userSchame)
 
 
 module.exports = User
