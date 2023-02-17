@@ -1,16 +1,16 @@
 
 const Product  = require('../models/product')
+const {filterQuery} = require('../utils/functions/request')
 
 
-
-//User
 const getProducts = async(req,res) =>{
 
-    const findTerms = req.query
-    
+    const query = filterQuery(req.query)
+
+
     try{
-        const products = await Product.find(findTerms)
-        res.status(200).json(products)
+        const products = await Product.find(query).skip(req.query.page*20).limit(20)
+        res.status(200).json({count:products.length,products})
     }
     catch(e){
         console.log(e);
@@ -22,6 +22,7 @@ const getProducts = async(req,res) =>{
 const createProduct = async(req,res) =>{
  
     const productValues = req.body
+
     const product = new Product(productValues)
     try{
        await product.save()
@@ -53,7 +54,16 @@ const updateProduct = async(req,res) =>{
 
 const deleteProduct = async(req,res) =>{
 
+    const {id} = req.params
 
+    try{
+        await Product.findByIdAndDelete(id)
+        res.status(200).json({success:true,message:"product has deleted"})
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json({success:false,message:"can't delete product"})
+    }
 }
 
 const getSpecificProduct = async(req,res) =>{
@@ -62,6 +72,11 @@ const getSpecificProduct = async(req,res) =>{
 
     try{
         const product = await Product.findById(Id)
+
+        if (!product) {
+          return res.status(404).json('cant get product')
+        }
+
         res.status(200).json(product)
     }
     catch(e){

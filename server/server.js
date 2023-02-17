@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const MongoDB = require('./utils/database/mongoose')
-
+const ErrorHandler = require('./utils/middleware/errorHandler')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -13,20 +13,21 @@ const UserRoute = require('./routes/user')
 const ProductRoute = require('./routes/product')
 //
 
-
-
 app.use('/',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/product',ProductRoute)
 
-app.use((error,req,res,next) =>{
 
-    if(error){
-        let message = error.message
-        res.json(message)
-    }
-    next()
-})
+app.use(ErrorHandler.ErrorHandler)
+
+// app.use((error,req,res,next) =>{
+
+//     if(error.statusCode === 500){
+//         let message = error.message
+//         res.json(message)
+//     }
+//     next()
+// })
 
 
 //////

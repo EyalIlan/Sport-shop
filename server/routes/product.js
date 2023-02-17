@@ -20,7 +20,4 @@ router.put('/:id',Auth,Admin,ProductController.updateProduct)
 router.delete('/:id',Auth,Admin,ProductController.deleteProduct)
 
 
-
-
-
 module.exports = router
